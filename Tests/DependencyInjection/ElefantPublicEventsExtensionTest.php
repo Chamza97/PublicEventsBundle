@@ -92,7 +92,7 @@ class ElefantPublicEventsExtensionTest extends TestCase
                 ['extra headers']
             ],
             $guzzleHandler->getArguments()
-        );
+        ); 
     }
 
     public function testGuzzleHandlerDefaultConfig()
