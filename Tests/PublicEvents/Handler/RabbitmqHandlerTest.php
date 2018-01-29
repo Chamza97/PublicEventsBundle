@@ -26,24 +26,4 @@ class RabbitmqHandlerTest extends TestCase
 
         $producerHandler->handle(new PublicEvent('test_event', new Event()));
     }
-
-    public function testLogError()
-    {
-        $producer = $this->getMockBuilder(ProducerInterface::class)->getMock();
-        $producer->expects($this->once())
-            ->method('publish')
-            ->willThrowException(new \Exception('test exception'));
-
-        $logger = $this->getMockBuilder(LoggerInterface::class)->getMock();
-        $logger->expects($this->once())
-            ->method('error')
-            ->with();
-
-        $producerHandler = new RabbitMqHandler($producer, 'routing_key');
-        $producerHandler->addFilter(new NameFilter('/.*/'))
-            ->addFormatter(HandlerMocker::getMockFormatter($this, ['message']))
-            ->setLogger($logger);
-
-        $producerHandler->handle(new PublicEvent('test_event', new Event()));
-    }
 }

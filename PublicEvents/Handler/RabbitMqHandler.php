@@ -25,15 +25,6 @@ class RabbitMqHandler extends Handler
     protected function doHandle($formattedEvent)
     {
         $message = json_encode($formattedEvent);
-        try {
-            $this->producer->publish($message, $this->routingKey);
-        } catch (\Exception $exception) {
-            if ($this->logger) {
-                $this->logger->error(
-                    'PublicEventsBundle_RabbitMqHandler error publishing',
-                    ['exception' => $exception->getMessage()]
-                );
-            }
-        }
+        $this->producer->publish($message, $this->routingKey);
     }
 }

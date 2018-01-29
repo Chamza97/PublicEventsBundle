@@ -9,6 +9,7 @@ class LoggerHandler extends Handler
 {
     private $level;
     private $logMessage;
+    private $logger;
 
     /**
      * @param string $level
@@ -25,5 +26,15 @@ class LoggerHandler extends Handler
         if ($this->logger) {
             $this->logger->log($this->level, $this->logMessage, ['event' => $logContext]);
         }
+    }
+
+    /**
+     * @param LoggerInterface $logger
+     * @return Handler
+     */
+    public function setLogger($logger)
+    {
+        $this->logger = $logger;
+        return $this;
     }
 }
