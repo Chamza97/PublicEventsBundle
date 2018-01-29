@@ -13,8 +13,7 @@ abstract class Handler implements HandlerInterface
     private $filters = [];
     /** @var  FormatterInterface[] */
     private $formatters = [];
-    /** @var LoggerInterface $logger */
-    protected $logger;
+
 
     /**
      * @param FilterInterface $filter
@@ -44,7 +43,7 @@ abstract class Handler implements HandlerInterface
         $serialized = $this->format($event);
         $this->doHandle($serialized);
     }
-    
+
     abstract protected function doHandle($formattedEvent);
 
     public function addFormatter(FormatterInterface $formatter)
@@ -62,16 +61,5 @@ abstract class Handler implements HandlerInterface
         }
 
         return $formatted;
-    }
-
-
-    /**
-     * @param LoggerInterface $logger
-     * @return Handler
-     */
-    public function setLogger($logger)
-    {
-        $this->logger = $logger;
-        return $this;
     }
 }
