@@ -68,10 +68,10 @@ class ElefantPublicEventsExtensionTest extends TestCase
 
         $this->assertEquals(
             [
-                ['addFormatter', [new Definition(MetadataFormatter::class)]],
-                ['addFilter', [new Definition(NameFilter::class, ['regex1'])]],
-                ['addFilter', [new Definition(NameFilter::class, ['regex2'])]],
-                ['addFilter', [new Definition(ClassFilter::class, ['ClassName'])]],
+                ['addFormatter', [(new Definition(MetadataFormatter::class))->setPublic(false)]],
+                ['addFilter', [(new Definition(NameFilter::class, ['regex1']))->setPublic(false)]],
+                ['addFilter', [(new Definition(NameFilter::class, ['regex2']))->setPublic(false)]],
+                ['addFilter', [(new Definition(ClassFilter::class, ['ClassName']))->setPublic(false)]],
                 ['setLogger', [new Reference('logger')]],
             ],
             $loggerHandler->getMethodCalls()
@@ -92,7 +92,7 @@ class ElefantPublicEventsExtensionTest extends TestCase
                 ['extra headers']
             ],
             $guzzleHandler->getArguments()
-        ); 
+        );
     }
 
     public function testGuzzleHandlerDefaultConfig()
@@ -147,7 +147,7 @@ class ElefantPublicEventsExtensionTest extends TestCase
         $this->assertEquals(
             [
                 ['addFormatter', [new Reference('custom_formatter')]],
-                ['addFilter', [new Definition(NameFilter::class, ['/.*/'])]],
+                ['addFilter', [(new Definition(NameFilter::class, ['/.*/']))->setPublic(false)]],
                 ['setLogger', [new Reference('logger')]],
             ],
             $loggerHandler->getMethodCalls()
@@ -165,8 +165,8 @@ class ElefantPublicEventsExtensionTest extends TestCase
             [
                 ['addFormatter', [new Reference('custom_formatter')]],
                 ['addFormatter', [new Reference('custom_formatter')]],
-                ['addFormatter', [new Definition(MetadataFormatter::class)]],
-                ['addFilter', [new Definition(NameFilter::class, ['/.*/'])]],
+                ['addFormatter', [(new Definition(MetadataFormatter::class))->setPublic(false)]],
+                ['addFilter', [(new Definition(NameFilter::class, ['/.*/']))->setPublic(false)]],
                 ['setLogger', [new Reference('logger')]],
             ],
             $loggerHandler->getMethodCalls()

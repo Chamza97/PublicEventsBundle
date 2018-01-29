@@ -118,6 +118,7 @@ class ElefantPublicEventsExtension extends Extension implements PrependExtension
         switch ($defaultFormatter) {
             case 'metadata':
                 $formatter = new Definition(MetadataFormatter::class);
+                $formatter->setPublic(false);
                 break;
             default:
                 $formatter = new Reference($defaultFormatter);
@@ -140,13 +141,15 @@ class ElefantPublicEventsExtension extends Extension implements PrependExtension
             if (!empty($filter['name'])) {
                 $filterDefinition = $container
                     ->register(sprintf('elefant.public_events.%s_%s_name_filter', $name, $index), NameFilter::class)
-                    ->setArguments([$filter['name']]);
+                    ->setArguments([$filter['name']])
+                    ->setPublic(false);
                 $handlerDefinition->addMethodCall('addFilter', [$filterDefinition]);
             }
             if (!empty($filter['class'])) {
                 $filterDefinition = $container
                     ->register(sprintf('elefant.public_events.%s_%s_class_filter', $name, $index), ClassFilter::class)
-                    ->setArguments([$filter['class']]);
+                    ->setArguments([$filter['class']])
+                    ->setPublic(false);
                 $handlerDefinition->addMethodCall('addFilter', [$filterDefinition]);
             }
         }
